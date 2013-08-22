@@ -10,3 +10,11 @@ So this will be a system, to be run as a cron job, to archive the DC mayor's sch
 
 
 The 'html' folder contains archived raw HTML from the mayor's site.
+The 'data' folder will eventually contain the archived schedule in a tabular format.
+The 'code' folder contains the code that does this stuff.
+
+
+To install:
+* pull your fork of the repo
+* 'chmod a+x code/download_and_save_if_new.py'
+* 'crontab -e'; 14 * * * * is the 14th minute of every hour
