@@ -37,3 +37,5 @@ if not os.path.exists(save_path):
   call("git add .", shell=True)
   call("git commit -m 'auto-update for " + then + "'", shell=True)
   call("git push", shell=True)
+else:
+  call("rm temp.html", shell=True)
