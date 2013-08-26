@@ -16,7 +16,6 @@ The 'code' folder contains the code that does this stuff.
 
 To install:
 * pull your fork of the repo
-* 'chmod a+x code/download_and_save_if_new.py'
-* 'crontab -e'; 14 * * * * is the 14th minute of every hour
+* 'crontab -e'; '14 * * * * full_path' runs 'full_path' on the 14th minute of every hour
 
 Shouts to [Code for DC](http://codefordc.org/)!
