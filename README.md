@@ -6,13 +6,11 @@ The DC Mayor has a public schedule available online here:
 
 Unfortunately there is no archive of said schedule. You can only see the current day - at least as of 2013-08-21.
 
-So this will be a system, to be run as a cron job, to archive the DC mayor's schedule and also perhaps make it available in a tabular format.
+So this is a system, to be run as a cron job, to archive the DC mayor's schedule and make it available in a tabular format.
 
-
-The 'html' folder contains archived raw HTML from the mayor's site.
-The 'data' folder will eventually contain the archived schedule in a tabular format.
-The 'code' folder contains the code that does this stuff.
-
+* The 'data' folder contains the archived schedule in UTF-8 CSV format.
+* The 'html' folder contains archived raw HTML from the mayor's site, from which the above is culled.
+* The 'code' folder contains the code that does this stuff.
 
 To install:
 * pull your fork of the repo
