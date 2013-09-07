@@ -32,9 +32,9 @@ for line in content:
 import os.path
 save_path = 'html/' + then + '.html'
 if not os.path.exists(save_path):
+  call("git pull", shell=True)
   call("mv temp.html " + save_path, shell=True)
   call("code/html_to_tabular.py", shell=True)
-  call("git pull", shell=True)
   call("git add .", shell=True)
   call("git commit -m 'auto-update for " + then + "'", shell=True)
   call("git push", shell=True)
