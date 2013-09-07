@@ -18,13 +18,13 @@ for filename in glob.glob(repo_dir + "/html/*.html"):
     for td in tr.iter('td'):
       tds.append(td)
     span = tds[0].iter('span').next()
-    datetime = span.values()[3]
+    datetime = span.values()[3].encode("utf-8")
     strong = tds[1].iter('strong').next()
-    event = strong.text_content()
+    event = strong.text_content().encode("utf-8")
     div = tds[1].iter('div').next()
-    venue = div.text_content()
+    venue = div.text_content().encode("utf-8")
     p = tds[1].iter('p').next()
-    comment = p.text_content()
+    comment = p.text_content().encode("utf-8")
     rows.append([datetime, event, venue, comment])
 
 outfile = open(repo_dir + '/data/mayor_events.csv', 'w')
