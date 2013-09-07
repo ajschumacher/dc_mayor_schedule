@@ -9,7 +9,7 @@ repo_dir = "/home/aaron/dc_mayor_schedule"
 rows = list()
 rows.append(["datetime", "event", "venue", "comment"])
 
-for filename in glob.glob(repo_dir + "/html/*.html"):
+for filename in sorted(glob.glob(repo_dir + "/html/*.html")):
   tree = lxml.html.parse(filename)
   html = tree.iter().next()
   table = html.find_class('views-table')[0]
