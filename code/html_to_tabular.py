@@ -29,6 +29,6 @@ for filename in sorted(glob.glob(repo_dir + "/html/*.html")):
 
 outfile = open(repo_dir + '/data/mayor_events.csv', 'w')
 writer = csv.writer(outfile)
-for row in rows:
+for row in rows[::-1]:
   writer.writerow(row)
 outfile.close()
