@@ -7,7 +7,6 @@ import csv # to write file
 repo_dir = "/home/aaron/dc_mayor_schedule"
 
 rows = list()
-rows.append(["datetime", "event", "venue", "comment"])
 
 for filename in sorted(glob.glob(repo_dir + "/html/*.html")):
   tree = lxml.html.parse(filename)
@@ -26,6 +25,9 @@ for filename in sorted(glob.glob(repo_dir + "/html/*.html")):
     p = tds[1].iter('p').next()
     comment = p.text_content().encode("utf-8")
     rows.append([datetime, event, venue, comment])
+
+# We're about to reverse everything
+rows.append(["datetime", "event", "venue", "comment"])
 
 outfile = open(repo_dir + '/data/mayor_events.csv', 'w')
 writer = csv.writer(outfile)
