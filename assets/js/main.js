@@ -4,7 +4,10 @@
 		Handlebars.registerHelper('parseEvent', function(event, headers, options){
 			var ret = '';
 			_.forEach(headers, function(header){
-				ret += options.fn(event[header]);
+				var val = event[header];
+				if(header === 'datetime')
+					val = moment(val).format('MM/DD/YY, h:mma');
+				ret += options.fn(val);
 			});
 			return ret;
 		});
@@ -47,22 +50,30 @@
 			var headers = _.map(rows.shift().split(','), function(header){
 				return header.match(/\w+/)[0];
 			});
-			var events = _.map(rows, function(row){
+			var events = crossfilter(_.map(rows, function(row){
 				var vals = row.split(',');
 				return _.zipObject(headers, vals);
-			});
+			}));
+			var dateDimension = events.dimension(this.parseDate);
 			return {
 				events : events,
+				rawEvents : dateDimension.top(Infinity),
+				dateDimension : dateDimension,
 				headers : headers
 			};
+		},
+
+		parseDate : function(d){
+			return moment(d.datetime).toDate().valueOf();
 		}
+
 	});
 
 	var EventsTable = Backbone.View.extend({
 		template : templates.events,
 
 		initialize : function(){
-			this.listenTo(this.model, 'change', this.render);
+			this.listenTo(this.model, 'change:rawEvents', this.render);
 		},
 
 		render : function(){
