@@ -41,7 +41,7 @@
 		},
 
 		parse : function(csv){
-			var rows = csv.split('\n');
+			var rows = csv.replace(/"([^\n]+)\n([^\n]+)"/g, '$1$2').split('\n');
 			// There was something wierd going on character wise with the headers
 			// So the regex fixes this by filtering out non-letter characers
 			var headers = _.map(rows.shift().split(','), function(header){
