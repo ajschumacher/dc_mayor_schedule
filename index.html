@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<script type="script/x-handlebars-template" id="event" data-partial="true">
+	{% raw %}
+		<td>{{this}}</td>
+	{% endraw %}
+</script>
+<script type="script/x-handlebars-template" id="events">
+	{% raw %}
+	<table class="table">
+		<thead>
+			<tr>
+				{{#each headers}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#each events}}
+				<tr>
+					{{#parseEvent this ../headers}}
+						{{> event}}
+					{{/parseEvent}}
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+	{% endraw %}
+</script>
+<div class="row">
+	<div id="events_table_container" class="col-md-12"></div>
+</div>
