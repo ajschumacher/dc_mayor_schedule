@@ -17,3 +17,5 @@ To install:
 * 'crontab -e'; '14 * * * * full_path' runs 'full_path' on the 14th minute of every hour
 
 Shouts to [Code for DC](http://codefordc.org/)! This is an [award-winning](http://farm6.staticflickr.com/5535/9571453964_0e12dcf940_o.jpg) project!
+
+There is a simple web interface for browsing the archive [here](http://ajschumacher.github.io/dc_mayor_schedule/).
