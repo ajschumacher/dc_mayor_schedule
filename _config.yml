@@ -1,0 +1,5 @@
+name: Code For DC - DC Mayor's Schedule Archive
+baseurl: /dc_mayor_schedule
+markdown: redcarpet
+pygments: true
+exclude: ['README.md', 'code']

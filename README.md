@@ -18,4 +18,4 @@ To install:
 
 Shouts to [Code for DC](http://codefordc.org/)! This is an [award-winning](http://farm6.staticflickr.com/5535/9571453964_0e12dcf940_o.jpg) project!
 
-There is a simple web interface for browsing the archive [here](http://ajschumacher.github.io/dc_mayor_schedule/).
+There is a beautiful web interface for browsing the archive [here](http://ajschumacher.github.io/dc_mayor_schedule/) courtesy of @shiftyp!

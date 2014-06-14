@@ -1,0 +1,57 @@
+---
+layout: default
+---
+<script type="script/x-handlebars-template" id="date_picker">
+	{% raw %}
+	<div class="form-group" id="date_picker">
+		<label>Select a Date to View:</label>
+		<div class="input-group date" data-date-format="MM/DD/YYYY">
+			<input type="text" class="form-control" />
+			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+		</div>
+	</div>
+	{% endraw %}
+</script>
+<script type="script/x-handlebars-template" id="event" data-partial="true">
+	{% raw %}
+		<td>{{{this}}}</td>
+	{% endraw %}
+</script>
+<script type="script/x-handlebars-template" id="events_table">
+	{% raw %}
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{{#each headerTitles}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#isEmpty rawEvents headers}}
+				<tr><td colspan="{{colspan}}" class="text-center">No Events For This Date</td></tr>
+			{{else}}
+				<tr>
+					{{#parseEvent this ../headers}}
+						{{> event}}
+					{{/parseEvent}}
+				</tr>
+			{{/isEmpty}}
+		</tbody>
+	</table>
+	{% endraw %}
+</script>
+<div class="row">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<h1>DC Mayor's Schedule Archive</h1>
+			<p class="lead">An archive of the DC Mayor's schedule.  This schedule is scraped from <a target="_blank" href="http://mayor.dc.gov/daily-schedule">http://mayor.dc.gov/daily-schedule</a> daily, and the project is maintained by <a href="http://codefordc.org">Code For DC</a>.  For more info and to see the code you can view the project on <a target="_blank" href="https://github.com/ajschumacher/dc_mayor_schedule">GitHub</a>.</p>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div id="date_picker_container" class='col-md-3'></div>
+</div>
+<div class="row">
+	<div id="events_table_container" class="col-md-12"></div>
+</div>
