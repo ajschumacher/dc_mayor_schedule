@@ -1,12 +1,23 @@
 !function(){
 
 	function initHelpers(){
+		var addressRegex = /\d+[^\(]+/;
 		Handlebars.registerHelper('parseEvent', function(event, headers, options){
 			var ret = '';
 			_.forEach(headers, function(header){
 				var val = event[header];
 				if(header === 'datetime')
 					val = moment(val).format('MM/DD/YYYY, h:mma');
+				if(header === 'venue'){
+					var addressMatch = val.match(addressRegex);
+					if(addressMatch){
+						var address = addressMatch[0];
+						val = val.replace(
+							addressRegex, 
+							'<a target="_blank" href="https://www.google.com/maps/place/'+address.replace(/\s/g, '+')+'">'+address+'</a>'
+						);
+					}
+				}
 				ret += options.fn(val);
 			});
 			return ret;
