@@ -114,6 +114,7 @@
 
 		setDate : function(date){
 			this.date = date;
+			if(this.picker) this.picker.setDate(date);
 		},
 
 		render : function(){
