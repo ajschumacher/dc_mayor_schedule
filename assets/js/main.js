@@ -53,10 +53,17 @@
 		url : 'data/mayor_events.csv',
 
 		filterDate : function(selectedDate){
-			this.get('dateDimension').filterFunction(function(timestamp){
-				return  moment(timestamp).isSame(selectedDate, 'day');
-			});
-			this.set('rawEvents', this.get('dateDimension').bottom(Infinity));
+			var filter = _.bind(function(){
+				this.get('dateDimension').filterFunction(function(timestamp){
+					return  moment(timestamp).isSame(selectedDate, 'day');
+				});
+				this.set('rawEvents', this.get('dateDimension').bottom(Infinity));
+			}, this);
+
+			if(this.get('dateDimension'))
+				filter();
+			else
+				this.listenToOnce(this, 'change:dateDimension', filter);
 		},
 	
 		sync: function(method, model, options) {
@@ -105,11 +112,15 @@
 			this.listenTo(this.model, 'change:dateDimension', this.render);
 		},
 
+		setDate : function(date){
+			this.date = date;
+		},
+
 		render : function(){
 			this.$el.html(this.template());
 			var maxDate = moment(this.model.get('dateDimension').top(1)[0].datetime);
 			var minDate = moment(this.model.get('dateDimension').bottom(1)[0].datetime);
-			var date = moment();
+			var date = this.date || moment();
 			this.picker = this.$('.date').datetimepicker({
 					pickTime : false,
 					minDate : minDate,
@@ -162,13 +173,23 @@
 			this.datePicker = new DatePicker({
 				model : this.events
 			});
-			this.listenTo(this.datePicker, 'ui.date.change', this.filterModel);
+			this.listenTo(this.datePicker, 'ui.date.change', this.changeDate);
 			this.datePicker.$el.appendTo(Backbone.$('#date_picker_container'));
 			this.eventsTable.$el.appendTo(Backbone.$('#events_table_container'));
 			this.events.fetch();
 		},
 
-		filterModel : function(date){
+		routes : {
+			'date/:date' : 'filterModel'
+		},
+
+		changeDate : function(date){
+			window.location.hash = '#/date/'+date.format('MM-DD-YYYY');
+		},
+
+		filterModel : function(dateString){
+			var date = moment(dateString);
+			this.datePicker.setDate(date);
 			this.events.filterDate(date);
 		}
 
