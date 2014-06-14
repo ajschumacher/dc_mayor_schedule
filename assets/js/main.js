@@ -11,6 +11,14 @@
 			});
 			return ret;
 		});
+		Handlebars.registerHelper('isEmpty', function(array, headers, options){
+			if(!array.length)
+				return options.fn({
+					colspan : headers.length
+				});
+			else
+				return _.map(array, options.inverse).join('\n');
+		});
 	}
 
 	function parseTemplates(){
@@ -32,6 +40,13 @@
 	
 	var Events = Backbone.Model.extend({
 		url : 'data/mayor_events.csv',
+
+		filterDate : function(selectedDate){
+			this.get('dateDimension').filterFunction(function(timestamp){
+				return  moment(timestamp).isSame(selectedDate, 'day');
+			});
+			this.set('rawEvents', this.get('dateDimension').top(Infinity));
+		},
 	
 		sync: function(method, model, options) {
 			var params = _.extend({
@@ -61,7 +76,6 @@
 			var dateDimension = events.dimension(this.parseDate);
 			return {
 				events : events,
-				rawEvents : dateDimension.top(Infinity),
 				dateDimension : dateDimension,
 				headers : headers
 			};
@@ -73,15 +87,58 @@
 
 	});
 
+	var DatePicker = Backbone.View.extend({
+		template : templates.date_picker,
+
+		initialize : function(){
+			this.listenTo(this.model, 'change:dateDimension', this.render);
+		},
+
+		render : function(){
+			this.$el.html(this.template());
+			var maxDate = moment(this.model.get('dateDimension').top(1)[0].datetime);
+			var minDate = moment(this.model.get('dateDimension').bottom(1)[0].datetime);
+			var date = moment();
+			this.picker = this.$('.date').datetimepicker({
+					pickTime : false,
+					minDate : minDate,
+					maxDate : maxDate
+				})
+				.on('dp.change', _.bindKey(this, 'triggerChange'))
+				.data('DateTimePicker');
+			this.picker.setDate(date);
+			this.triggerChange();
+		},
+
+		triggerChange : function(){
+			this.trigger('ui.date.change', this.picker.getDate());
+		}
+	});
+
 	var EventsTable = Backbone.View.extend({
-		template : templates.events,
+		template : templates.events_table,
+
+		headerTitles : {
+			'datetime' : 'Date',
+			'event' : 'Description',
+			'venue' : 'Venue',
+			'comment' : 'Comments'
+		},
 
 		initialize : function(){
 			this.listenTo(this.model, 'change:rawEvents', this.render);
 		},
 
 		render : function(){
-			this.$el.html(this.template(this.model.toJSON()));
+			var context = {
+				rawEvents : this.model.get('rawEvents'),
+				headerTitles : _.map(this.model.get('headers'), function(header){
+					return this.headerTitles[header] || header;
+				}, this),
+				headers : this.model.get('headers')
+			};
+
+			this.$el.html(this.template(context));
 		}
 	});
 
@@ -91,8 +148,17 @@
 			this.eventsTable = new EventsTable({
 				model : this.events
 			});
+			this.datePicker = new DatePicker({
+				model : this.events
+			});
+			this.listenTo(this.datePicker, 'ui.date.change', this.filterModel);
+			this.datePicker.$el.appendTo(Backbone.$('#date_picker_container'));
 			this.eventsTable.$el.appendTo(Backbone.$('#events_table_container'));
 			this.events.fetch();
+		},
+
+		filterModel : function(date){
+			this.events.filterDate(date);
 		}
 
 	});
