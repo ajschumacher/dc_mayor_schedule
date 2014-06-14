@@ -4,7 +4,8 @@ layout: default
 <script type="script/x-handlebars-template" id="date_picker">
 	{% raw %}
 	<div class="form-group" id="date_picker">
-		<div class="input-group date" data-date-format="YYYY/MM/DD">
+		<label>Select a Date to View:</label>
+		<div class="input-group date" data-date-format="MM/DD/YYYY">
 			<input type="text" class="form-control" />
 			<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 		</div>
@@ -41,7 +42,7 @@ layout: default
 	{% endraw %}
 </script>
 <div class="row">
-	<div id="date_picker_container" class='col-sm-6'></div>
+	<div id="date_picker_container" class='col-md-3'></div>
 </div>
 <div class="row">
 	<div id="events_table_container" class="col-md-12"></div>

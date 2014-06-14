@@ -6,7 +6,7 @@
 			_.forEach(headers, function(header){
 				var val = event[header];
 				if(header === 'datetime')
-					val = moment(val).format('MM/DD/YY, h:mma');
+					val = moment(val).format('MM/DD/YYYY, h:mma');
 				ret += options.fn(val);
 			});
 			return ret;
