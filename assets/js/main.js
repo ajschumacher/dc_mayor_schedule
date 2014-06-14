@@ -56,7 +56,7 @@
 			this.get('dateDimension').filterFunction(function(timestamp){
 				return  moment(timestamp).isSame(selectedDate, 'day');
 			});
-			this.set('rawEvents', this.get('dateDimension').top(Infinity));
+			this.set('rawEvents', this.get('dateDimension').bottom(Infinity));
 		},
 	
 		sync: function(method, model, options) {
