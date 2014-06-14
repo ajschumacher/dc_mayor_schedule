@@ -44,16 +44,20 @@
 		},
 
 		parse : function(csv){
-			var rows = csv.replace(/"([^\n]+)\n([^\n]+)"/g, '$1$2').split('\n');
+			var rows = csv.replace(/\n(.+)\n(.*)(?=")/g, '\n$1 $2').split('\n');
 			// There was something wierd going on character wise with the headers
 			// So the regex fixes this by filtering out non-letter characers
 			var headers = _.map(rows.shift().split(','), function(header){
 				return header.match(/\w+/)[0];
 			});
-			var events = crossfilter(_.map(rows, function(row){
-				var vals = row.split(',');
+			var events = crossfilter(_(rows).map(function(row){
+				var vals = row.split(',').map(function(field){
+					return field.replace('^"|"$', '');
+				});
 				return _.zipObject(headers, vals);
-			}));
+			}).reject(function(d){
+				return _.contains(d, undefined);
+			}).value());
 			var dateDimension = events.dimension(this.parseDate);
 			return {
 				events : events,
