@@ -1,7 +1,7 @@
 !function(){
 
 	function initHelpers(){
-		var addressRegex = /\d+[^\(\)]+/;
+		var addressRegex = /\d+\s[^\(\)\d]+/;
 		Handlebars.registerHelper('parseEvent', function(event, headers, options){
 			var ret = '';
 			_.forEach(headers, function(header){
@@ -84,7 +84,7 @@
 				return header.match(/\w+/)[0];
 			});
 			var events = crossfilter(_(rows).map(function(row){
-				var vals = row.replace(/"(.+),(.+)"/, '$1%COMMA%$2').split(/,/).map(function(field){
+				var vals = row.replace(/"(.+),(.+)"/g, '$1%COMMA%$2').split(/,/).map(function(field){
 					return field.replace('%COMMA%', ',').replace(/^"\s*|^\s+|\s*"$|\s+$/g, '');
 				});
 				return _.zipObject(headers, vals);
