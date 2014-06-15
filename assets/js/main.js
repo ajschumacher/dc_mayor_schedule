@@ -1,7 +1,7 @@
 !function(){
 
 	function initHelpers(){
-		var addressRegex = /\d+[^\(]+/;
+		var addressRegex = /\d+[^\(\)]+/;
 		Handlebars.registerHelper('parseEvent', function(event, headers, options){
 			var ret = '';
 			_.forEach(headers, function(header){
