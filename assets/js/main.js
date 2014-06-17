@@ -77,20 +77,11 @@
 		},
 
 		parse : function(csv){
-			var rows = csv.replace(/\n(.+)\n(.*)(?=")/g, '\n$1 $2').split(/"\n|\r\n|\n/);
-			// There was something wierd going on character wise with the headers
-			// So the regex fixes this by filtering out non-letter characers
-			var headers = _.map(rows.shift().split(','), function(header){
+			var rawEvents = $.csv.toObjects(csv);
+			var headers = _.map(csv.substring(0, csv.indexOf('\n')).split(','), function(header){
 				return header.match(/\w+/)[0];
 			});
-			var events = crossfilter(_(rows).map(function(row){
-				var vals = row.replace(/"(.+),(.+)"/g, '$1%COMMA%$2').split(/,/).map(function(field){
-					return field.replace('%COMMA%', ',').replace(/^"\s*|^\s+|\s*"$|\s+$/g, '');
-				});
-				return _.zipObject(headers, vals);
-			}).reject(function(d){
-				return _.contains(d, undefined);
-			}).value());
+			var events = crossfilter(rawEvents);
 			var dateDimension = events.dimension(this.parseDate);
 			return {
 				events : events,
