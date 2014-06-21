@@ -180,7 +180,7 @@
 		},
 
 		filterModel : function(dateString){
-			var date = moment(dateString);
+			var date = moment(dateString, 'MM-DD-YYYY');
 			this.datePicker.setDate(date);
 			this.events.filterDate(date);
 		}
