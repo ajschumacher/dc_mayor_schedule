@@ -4,7 +4,7 @@ import glob # to find files
 import lxml.html
 import csv # to write file
 
-repo_dir = "/home/aaron/dc_mayor_schedule"
+repo_dir = "/home/ubuntu/dc_mayor_schedule"
 
 rows = list()
 

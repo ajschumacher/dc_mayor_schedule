@@ -2,7 +2,7 @@
 
 
 # Change for local system
-repo_dir = "/home/aaron/dc_mayor_schedule"
+repo_dir = "/home/ubuntu/dc_mayor_schedule"
 target_url = "http://mayor.dc.gov/daily-schedule"
 # This is not actually generalized for any target_url,
 # because it checks for a date in the HTML that doesn't
