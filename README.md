@@ -13,6 +13,7 @@ So this is a system, to be run as a cron job, to archive the DC mayor's schedule
 * The 'code' folder contains the code that does this stuff.
 
 To install:
+* make sure you have Python and [lxml installed](http://lxml.de/installation.html)
 * pull your fork of the repo
 * 'crontab -e'; '14 * * * * full_path' runs 'full_path' on the 14th minute of every hour
 
