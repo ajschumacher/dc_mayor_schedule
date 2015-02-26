@@ -1,0 +1,39 @@
+{
+    "conformsTo": "https://raw.githubusercontent.com/codefordc/guides/master/using-civic.json/specification.md",
+    "status": "Production",
+    "thumbnailUrl": "http://ajschumacher.github.io/dc_mayor_schedule/assets/img/240px-Pink-Calendar.png",
+    "contact": {
+        "name": "Aaron Schumacher",
+        "email": "ajschumacher@gmail.com",
+        "twitter": "@planarrowspace"
+    },
+    "bornAt": "Code for DC",
+    "geography": "Washington, DC",
+    "politicalEntity": {
+        "DC Mayor": "http://mayor.dc.gov/"
+    },
+    "communityPartner": {
+        "Code for DC": "http://codefordc.org/"
+    },
+    "type": "Web App",
+    "data": {
+        "DC mayor public schedule events": "https://github.com/ajschumacher/dc_mayor_schedule/raw/gh-pages/data/mayor_events.csv"
+    },
+    "needs": [
+        {
+            "need": "updating to new data source"
+        }
+    ],
+    "categories": [
+        {
+            "category": "Open Data"
+        },
+        {
+            "category": "Politics"
+        },
+        {
+            "category": "Government"
+        }
+    ],
+    "moreInfo": "https://github.com/ajschumacher/dc_mayor_schedule"
+}
