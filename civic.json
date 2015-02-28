@@ -1,5 +1,5 @@
 {
-    "conformsTo": "https://raw.githubusercontent.com/codefordc/guides/master/using-civic.json/specification.md",
+    "conformsTo": "http://codefordc.org/resources/specification.html",
     "status": "Production",
     "thumbnailUrl": "http://ajschumacher.github.io/dc_mayor_schedule/assets/img/240px-Pink-Calendar.png",
     "contact": {
