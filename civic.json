@@ -1,8 +1,8 @@
 {
     "name": "Mayor's Schedule Archive", 
     "description": "archive the DC mayor's public schedule; tabularize it; give archive web interface", 
-    "license": "GPL-2.0", 
-    "status": "Production", 
+    "license": "MIT", 
+    "status": "Archival", 
     "type": "Web App", 
     "homepage": "http://ajschumacher.github.io/dc_mayor_schedule/", 
     "repository": "https://github.com/ajschumacher/dc_mayor_schedule", 
